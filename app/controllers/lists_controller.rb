@@ -8,12 +8,14 @@ class ListsController < ApplicationController
   def create
     # １.&2. データを受け取り新規登録するためのインスタンス作成
     #@がついていないローカル変数はビューファイルに受け渡しができない
-     list = List.new(list_params)
+    
+     @list = List.new(list_params)
+     
    #上記をList.find(2)にすると投稿後list/2の結果が表示される
    #データをデータベースに保存するためのsaveメソッド実行
-    list.save
+    @list.save
     
-    redirect_to list_path(list.id)
+    redirect_to list_path(@list.id)
    
    
   end
@@ -23,7 +25,7 @@ class ListsController < ApplicationController
   end
 
   def show
-    @lists = List.find(params[:id])
+    @list = List.find(params[:id])
   end
 
   def edit
@@ -38,6 +40,6 @@ class ListsController < ApplicationController
   
   private
   def list_params
-    params.require(:list).permit(:title, :body)
+    params.require(:list).permit(:title, :body, :image)
   end
 end
