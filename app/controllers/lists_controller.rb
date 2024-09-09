@@ -10,9 +10,13 @@ class ListsController < ApplicationController
     if @list.save
       redirect_to list_path(@list.id)
     else
-      render :new
+      @lists = List.all
+      render :index
+    
     end
     end
+    
+
     
   
    #上記をList.find(2)にすると投稿後list/2の結果が表示される
